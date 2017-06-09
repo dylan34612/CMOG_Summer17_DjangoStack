@@ -4,6 +4,7 @@
 {% load mathfilters %}
 
 {% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
       path {
         stroke: white;
@@ -14,49 +15,52 @@
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://d3js.org/topojson.v0.min.js"></script>
 <div class="hero-unit">
-    <div>
-        <div id = "maincanvas">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Map</a></li>
+        <li><a data-toggle="tab" href="#menu2">Data Points</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <h3>Map</h3>
+            <div id = "maincanvas">
 
-        </div>
-        <script>
+            </div>
+            <script>
 
 
-            var canvas = d3.select("#maincanvas")
-                            .append("svg")
-                            .attr("width", 216*3)
-                            .attr("height", 254*3)
+                var canvas = d3.select("#maincanvas")
+                                .append("svg")
+                                .attr("width", 216*3)
+                                .attr("height", 254*3)
 
 
-            var image = canvas.append("svg:image")
-                            .attr("xlink:href", "{% get_static_prefix %}/img/3500Years.png" )
-                            .attr("width", "100%")
-                            .attr("height", "100%")                
+                var image = canvas.append("svg:image")
+                                .attr("xlink:href", "{% get_static_prefix %}/img/3500Years.png" )
+                                .attr("width", "100%")
+                                .attr("height", "100%")                
 
-            var ppath = canvas.append("polyline")
-                                .style("stroke", "green")
-                                .style("fill", "none")
-                                .style("stroke-width", 3)
-                                .attr("viewBox", 0, 0, 216, 254)
-                                .attr("points", "{% for jsondata in jsondata %}{% if jsondata.mapInfo.mapHierarchyString == 'System Campus>Birketts Building>3500 Years Gallery' %} {{ jsondata.mapCoordinate.x| mul:3 }},{{ jsondata.mapCoordinate.y| mul:3 }}, {% endif %}{% endfor %}");
+                var ppath = canvas.append("polyline")
+                                    .style("stroke", "green")
+                                    .style("fill", "none")
+                                    .style("stroke-width", 3)
+                                    .attr("viewBox", 0, 0, 216, 254)
+                                    .attr("points", "{% for jsondata in jsondata %}{% if jsondata.mapInfo.mapHierarchyString == 'System Campus>Birketts Building>3500 Years Gallery' %} {{ jsondata.mapCoordinate.x| mul:3 }},{{ jsondata.mapCoordinate.y| mul:3 }}, {% endif %}{% endfor %}");
   
             
             </script>
-        <p> {{ jsondata.mapCoordinate.x }} </p>
-        <!--<div id="map" style = "text-align: center;"> <img class="center-block" <IMG SRC="{% get_static_prefix %}/img/3500Years.png" align="middle" style="width: 50%;height:50%;"></div>
-        -->
-
+    </div>
+    <div id="menu2" class="tab-pane fade">
+        <h3>Data Points</h3>
         {% for jsondata in jsondata %}
-        <div>
-            {% if jsondata.mapInfo.mapHierarchyString == "System Campus>Birketts Building>3500 Years Gallery" %}
-           <!-- <p>{{ jsondata.mapInfo.mapHierarchyString }}</p>    -->
-            <p>X = {{ jsondata.mapCoordinate.x| mul:2 }}</p>
-            <p>Y = {{ jsondata.mapCoordinate.y| mul:2 }}</p>
-            <p>Time = {{ jsondata.statistics.lastLocatedTime }}
-            <p>--------------------</p>
-            {% endif %}
-        </div>
+            <div>
+                {% if jsondata.mapInfo.mapHierarchyString == "System Campus>Birketts Building>3500 Years Gallery" %}
+                    <p>X = {{ jsondata.mapCoordinate.x| mul:2 }}</p>
+                    <p>Y = {{ jsondata.mapCoordinate.y| mul:2 }}</p>
+                    <p>Time = {{ jsondata.statistics.lastLocatedTime }}
+                    <p>--------------------</p>
+                {% endif %}
+            </div>
         {% endfor %}
-        </table>
-    </div>  
+  </div>
 </div>
 {% endblock %}
