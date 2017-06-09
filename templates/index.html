@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="{% static 'css/bootstrap-fluid-adj.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'css/bootstrap-responsive.css' %}" rel="stylesheet">
+
+    <title>CMOG Hyperlocation - {% block title %}CMOG Hyperlocation{% endblock %}</title>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+   <div class="navbar-inner">
+       <div class="container">
+           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+           </button>
+           <a class="brand" href="">CMOG Hyperlocation
+           </a>
+           <!--/.nav-collapse -->
+       </div>
+   </div>
+</div>
+    <div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="well sidebar-nav">
+                <img src="{% static "/img/cmog.jpg" %}" alt="CMOG Logo" />
+            </div>
+            <!--/.well -->
+        </div>
+        <!--/span-->
+        <div class="span9">
+            {% block body_block %}
+<div class="hero-unit">
+    <h2>Please Select Which App you would like to use below</h2>
+    <p>All apps are currently being working on so expect bugs</p>
+</div>
+
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <H3>Select App</H3>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="/macinput">MacTracker</a></li>
+    <!-- <li><a href="/map/2">Europe/Middle East/Asia Map</a></li>
+    <li><a href="/map/3">Corning NY</a></li>
+    <li><a href="/map/4">Corning-Painted Post NY</a></li>
+    <li><a href="/map/5">City of Williamsport</a></li>
+    <li><a href="/map/6">Trout Run PA</a></li>
+    <li><a href="/map/7">Montoursville PA</a></li> -->
+
+  </ul>
+</div>
+    <!--/span-->
+    <!--/span-->
+</div>
+<!--/row-->
+{% endblock %}
+        </div>
+        <!--/span-->
+    </div>
+    <!--/row-->
+</div>
+<!--/.fluid-container-->
+
+<hr>
+
+    <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+<footer>
+    <div class="container">
+        <p>&copy; CMOG Hyperlocation Maps</p>
+    </div>
+</footer>
+</html>

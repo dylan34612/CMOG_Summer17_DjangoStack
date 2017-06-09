@@ -14,9 +14,13 @@ def index(request):
 
 def macTracker(request):
     mac_add = request.GET.get('mac')
+    target_date = request.GET.get('date')
     mac_ad = mac_add.replace('%3A',':')
-    now = datetime.datetime.now()
-    date = now.strftime("%Y/%m/%d")
+    if target_date != "":
+        date = target_date
+    else:
+        now = datetime.datetime.now()
+        date = now.strftime("%Y/%m/%d")
     #date = "2017/06/06"
     safeurl = open("static/api/url")
     preurl = safeurl.read()
