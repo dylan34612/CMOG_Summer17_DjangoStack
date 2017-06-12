@@ -40,4 +40,18 @@ def macTracker(request):
     return render(request, 'macTrack.html', {"jsondata": jsondata})
 
 def mac_input(request):
-    return render(request, 'mac_input.html')
+    safeurl1 = open("static/api/url1")
+    preurl1 = safeurl1.read()
+    #preurl = preurl+"/api/location/v2/clients"
+    safeauth1 = open("static/api/auth1")
+    safetoke1 = open("static/api/toke1")
+    headers1 = {
+        'authorization': safeauth1.read(),
+        'cache-control': "no-cache",
+        'postman-token': safetoke1.read()
+   }
+    array1 = requests.request("GET", preurl1, headers=headers1, verify=False)
+    
+    jsondata1 = array1.json()
+    
+    return render(request, 'mac_input.html', {"jsondata1": jsondata1})

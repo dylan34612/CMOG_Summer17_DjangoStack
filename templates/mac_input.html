@@ -3,9 +3,17 @@
 {% load static %}
 
 {% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#home">Custom MacAddress Search</a></li>
+  <li><a data-toggle="tab" href="#menu1">List of MacAddress</a></li>
+</ul>
 
 <div class="hero-unit">
-    <form id="macselect" method="GET" action="/macTracker/">
+<div class="tab-content">
+  <div id="home" class="tab-pane fade in active">
+        <form id="macselect" method="GET" action="/macTracker/">
         <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">MacAddress To Track</span>
             <input type="text" name="mac" class="form-control" placeholder="ff:ff:ff:ff:ff:ff" aria-describedby="basic-addon1" value="">
@@ -21,6 +29,35 @@
 <div> 
     Example
     <a href="/macTracker/?mac=40%3A88%3A05%3Abd%3Aff%3A67">Test Phone</a>
+</div>
+  </div>
+  <div id="menu1" class="tab-pane fade">
+    <h3>Mac Addresses Currently in 3500 Years</h3>
+    {% for jsondata1 in jsondata1 %}
+        <div>
+            {% if jsondata1.mapInfo.mapHierarchyString == "System Campus>Birketts Building>3500 Years Gallery" %}
+                {% if jsondata1.ssId != "" %}
+                <table>
+                    <td>
+                    <p>Username: {{ jsondata1.userName }}</p>
+                    <p>MacAddress: {{ jsondata1.macAddress }}</p>
+                    <p>confidenceFactor: {{ jsondata1.confidenceFactor }}</p>
+                    <p>Connected SSID: {{ jsondata1.ssId }}</p>
+                    <p>--------------------------------------------------------</p>
+                    </td>
+                    <td>
+                        <form id="macselect" method="GET" action="/macTracker/">
+                        <input type="hidden" name="mac" value={{jsondata1.macAddress}}>
+                        <button type="submit" class="btn btn-success">Track</button>
+                        </form>
+                    </td>
+                </table>
+                {% endif %}
+            {% endif %}
+  {% endfor %}
+  
+  </div>
+</div>
 </div>  
 </div>
 {% endblock %}
